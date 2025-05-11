@@ -11,9 +11,10 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || "*", // Allow specific origin or all origins
-  methods: ["GET", "POST"], // Allowed HTTP methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+  origin: process.env.CORS_ORIGIN || "http://localhost:3000", // Allow specific origin
+  methods: ["GET", "POST", "OPTIONS"], // Include OPTIONS for preflight requests
+  allowedHeaders: ["Content-Type", "Authorization"], // Allow necessary headers
+  credentials: true, // Allow cookies if needed
 };
 
 app.use(cors(corsOptions));
