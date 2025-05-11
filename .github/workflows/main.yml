@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - task/url-shortene-backend
+  pull_request:
+    branches:
+      - task/url-shortene-backend
 
 jobs:
   build-and-test:
