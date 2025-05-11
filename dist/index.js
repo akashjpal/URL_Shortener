@@ -13,19 +13,25 @@ const UrlHelper_1 = require("./Helpers/UrlHelper");
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3001;
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({
+    origin: "*"
+}));
 app.use(express_1.default.json());
 app.post("/url", (req, res) => {
     const { url } = req.body;
+    console.log(url);
     try {
         if (valid_url_1.default.isUri(url)) {
             const newId = shortid_1.default.generate();
+            console.log("I'm here");
             const newURL = `${process.env.BASE_URL}/${newId}`;
             const urlModel = new UrlModel_1.UrlModel();
             urlModel.originalUrl = url;
             urlModel.shortenedurl = newURL;
+            console.log("I'm here");
             const urlHelper = new UrlHelper_1.UrlHelper();
             urlHelper.addUrl(urlModel);
+            console.log("Im' here");
             res.status(200).json({
                 data: {
                     urlModel: urlModel
@@ -39,6 +45,7 @@ app.post("/url", (req, res) => {
         }
     }
     catch (error) {
+        console.log("I'm got error");
         console.error(error);
         res.status(400).json({
             error: error
